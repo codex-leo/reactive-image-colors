@@ -109,7 +109,7 @@ The main function `extractColors` is the core of this package.
 Using npm package:
 
 ```bash
-        npm install reactive-image-colors 
+        npm i reactive-image-colors
 ```
 
 <br/>
@@ -228,3 +228,4 @@ Please make sure to follow the existing code style and include tests for any new
 ## Acknowledgements
 
 Thanks to the open-source community for inspiration and resources that helped in building this package.
+

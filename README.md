@@ -41,35 +41,35 @@ The main core is divided into three simple steps:
    - First, it converts RGB colors to HSL to better analyze color properties like lightness and saturation.
    <br/>
 
-        ```ts
-         const colors = pixels.map(rgb => {
-             const hsl = rgbToHsl(rgb);
-             return { rgb, hsl };
-         });
-        ```
+  ```ts
+        const colors = pixels.map(rgb => {
+         const hsl = rgbToHsl(rgb);
+         return { rgb, hsl };
+        });
+  ```
    - Then, it pick accent candidates based on saturation and lightness thresholds.
    <br/>
 
-        ```ts
+  ```ts
          const accentCandidates = colors.filter(c =>
              c.hsl.s > 0.35 &&
              c.hsl.l > 0.25 &&
              c.hsl.l < 0.75 &&
              !isSkinTone(c.hsl.h, c.hsl.s, c.hsl.l) // Exclude skin tones
          );
-        ```
+   ```
    - Then, it sorts accent candidates by saturation and lightness to find the most vibrant color.
    <br/>
 
-        ```ts
+  ```ts
          const accent = accentCandidates
           .sort((a, b) => accentScore(b.hsl) - accentScore(a.hsl))[0];
          // accentScore is a function that gives higher scores to more saturated and mid-lightness colors, which helps in avoiding muddy colors.
-        ```
+  ```
     - Finally, it picks light,dark colors based on lightness thresholds.And also creates a palette of colors.
     <br/>
 
-        ```ts
+  ```ts
          const light = colors
          .filter(c => c.hsl.l > 0.85)
          .sort((a, b) => b.hsl.l - a.hsl.l)[0];
@@ -82,7 +82,7 @@ The main core is divided into three simple steps:
          .sort((a, b) => b.hsl.s - a.hsl.s)
          .slice(0, 6)
          .map(c => rgbToHex(c.rgb));
-        ```
+  ```
     - It returns the extracted colors in hex format.
 
 The above all three steps are combined in the main function `extractColors.ts` which wires everything together.
@@ -106,53 +106,57 @@ The main function `extractColors` is the core of this package.
 
 1. Install:
 
-    ```bash
+Using npm package:
+
+```bash
         npm install reactive-image-colors 
-    ```
-    *Note: This package is not yet published to npm. You can clone the repo and use it locally.*
+```
+
 <br/>
 
-    ```bash
+OR cloning the project on local machine:
+
+```bash
         git clone https://github.com/codex-leo/reactive-image-colors.git
 
         cd reactive-image-colors
         
         npm install
-    ```
+```
 
 2. Usage:
     <br/>
-
-    ```ts
+   - Using in simple js/ts application:
+```ts
         import { extractColors } from 'reactive-image-colors';
 
         const colors = await extractColors('path/to/image.jpg');
         console.log(colors);
-    ```
-    This will log an object containing the accent, light, dark colors and palette extracted from the image.
-    The output will look like this:
-    ```ts
+```
+
+
+  - This will log an object containing the accent, light, dark colors and palette extracted from the image.
+
+  - The output will look like this:
+```ts
         {
           accent: '#ff5733',
           light: '#f0e68c',
           dark: '#2f4f4f',
           palette: ['#ff5733', '#33ff57', '#3357ff', '#f0e68c', '#2f4f4f', '#8b4513'] //6 most prominent colors
         }
-    ```
+```
+
 3. React Hook Usage:
-    You can also use the provided React hook to extract colors in a React component.
+    - You can also use the provided React hook to extract colors in a React component.
 
-    *NOTE: As react is peer dependency, you need to install it separately.*
-    <br/>
-    ```bash
-        npm install react
-    ```
-
-    Hook `useImageColors`: 
+   - Hook `useImageColors`: 
     This hook accepts two parameters: image source (URL or HTMLImageElement) and options.
     (Refer [extractColors function](#extractcolors-function) section for available options)
+
     <br/>
-    ```tsx
+    
+```tsx
         import React from 'react';
         import { useImageColors } from 'reactive-image-colors';
 
@@ -174,9 +178,9 @@ The main function `extractColors` is the core of this package.
         };
 
         export default MyComponent;
-    ```
-    This hook returns an object containing:
-    ```ts
+ ```
+   - This hook returns an object containing:
+```ts
     {
         colors: {
             accent: string
@@ -187,8 +191,8 @@ The main function `extractColors` is the core of this package.
         loading: boolean
         error: Error | null
     }
-    ```
-    and also have loading state to indicate if the colors are still being extracted.
+ ```
+   - and also have loading state to indicate if the colors are still being extracted.
 
 ## Browser & Node Support
 
@@ -222,4 +226,5 @@ Contributions are welcome! If you find any issues or have suggestions for improv
 Please make sure to follow the existing code style and include tests for any new features or bug fixes.
 
 ## Acknowledgements
+
 Thanks to the open-source community for inspiration and resources that helped in building this package.

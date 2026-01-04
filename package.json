@@ -1,0 +1,43 @@
+{
+  "name": "reactive-image-colors",
+  "version": "0.1.0",
+  "description": "Extract semantic colors from images for reactive UI themes",
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js"
+    },
+    "./react": {
+      "types": "./dist/react/index.d.ts",
+      "import": "./dist/react/index.mjs",
+      "require": "./dist/react/index.js"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsup src/index.ts src/react/index.ts --format esm,cjs --dts --external react"
+  },
+  "keywords": [
+    "color",
+    "image",
+    "accent",
+    "music",
+    "theme"
+  ],
+  "author": "codex-leo",
+  "license": "MIT",
+  "peerDependencies": {
+    "react": ">=18"
+  },
+  "devDependencies": {
+    "@types/react": "^19.2.7",
+    "tsup": "^8.5.1",
+    "typescript": "^5.9.3"
+  }
+}

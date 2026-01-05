@@ -3,9 +3,9 @@
 Extract semantic colors (accent, light, dark) from images to build reactive, image-driven UI themes.
 
 # Table of Contents
-- [Installation & Usage](#installation--usage)
 - [Core Idea of Implementation](#core-idea-of-implementation)
 - [extractColors function](#extractcolors-function)
+- [Installation & Usage](#installation--usage)
 - [Browser & Node Support](#browser--node-support)
 - [Real-World Examples](#real-world-examples)
 - [Why This Package?](#why-this-package)
@@ -13,98 +13,7 @@ Extract semantic colors (accent, light, dark) from images to build reactive, ima
 - [Contributing](#contributing)
 - [Acknowledgements](#acknowledgements)
 
-## Installation & Usage
-
-1. Install:
-
-Using npm package:
-
-```bash
-        npm i reactive-image-colors
-```
-
-<br/>
-
-OR cloning the project on local machine:
-
-```bash
-        git clone https://github.com/codex-leo/reactive-image-colors.git
-
-        cd reactive-image-colors
-        
-        npm install
-```
-
-2. Usage:
-    <br/>
-   - Using in simple js/ts application:
-```ts
-        import { extractColors } from 'reactive-image-colors';
-
-        const colors = await extractColors('path/to/image.jpg');
-        console.log(colors);
-```
-
-
-  - This will log an object containing the accent, light, dark colors and palette extracted from the image.
-
-  - The output will look like this:
-```ts
-        {
-          accent: '#ff5733',
-          light: '#f0e68c',
-          dark: '#2f4f4f',
-          palette: ['#ff5733', '#33ff57', '#3357ff', '#f0e68c', '#2f4f4f', '#8b4513'] //6 most prominent colors
-        }
-```
-
-3. React Hook Usage:
-    - You can also use the provided React hook to extract colors in a React component.
-
-   - Hook `useImageColors`: 
-    This hook accepts two parameters: image source (URL or HTMLImageElement) and options.
-    (Refer [extractColors function](#extractcolors-function) section for available options)
-
-    <br/>
-    
-```tsx
-        import React from 'react';
-        import { useImageColors } from 'reactive-image-colors/react';
-
-        const MyComponent = () => {
-          const { colors, loading} = useImageColors(song.cover, {
-          mode: "music"
-        });
-          if (loading) return <div>Loading...</div>;
-          if (error) return <div>Error: {error}</div>;
-
-          return (
-            <div>
-              <p>Accent: {colors?.accent}</p>
-              <p>Light: {colors?.light}</p>
-              <p>Dark: {colors?.dark}</p>
-              <p>Palette: {colors?.palette.join(', ')}</p>
-            </div>
-          );
-        };
-
-        export default MyComponent;
- ```
-   - This hook returns an object containing:
-```ts
-    {
-        colors: {
-            accent: string
-            light: string
-            dark: string
-            palette: string[]
-        } | null
-        loading: boolean
-        error: Error | null
-    }
- ```
-   - and also have loading state to indicate if the colors are still being extracted.
-
+*NOTE: If you are not curious about how the package core is implemented, and want to use it quickly,you can jump to the [Installation & Usage](#installation--usage) section.*
 
 ## Core Idea of Implementation
 
@@ -192,6 +101,98 @@ The main function `extractColors` is the core of this package.
     The options object can have the following properties:
     - `mode`: A string that specifies the mode of color extraction. It can be either `"default"`(which is the default) or `"music"`. The `"music"` mode is optimized for album covers and similar images.
     (More Options are coming soon...)
+
+## Installation & Usage
+
+1. Install:
+
+Using npm package:
+
+```bash
+        npm i reactive-image-colors
+```
+
+<br/>
+
+OR cloning the project on local machine:
+
+```bash
+        git clone https://github.com/codex-leo/reactive-image-colors.git
+
+        cd reactive-image-colors
+        
+        npm install
+```
+
+2. Usage:
+    <br/>
+   - Using in simple js/ts application:
+```ts
+        import { extractColors } from 'reactive-image-colors';
+
+        const colors = await extractColors('path/to/image.jpg');
+        console.log(colors);
+```
+
+
+  - This will log an object containing the accent, light, dark colors and palette extracted from the image.
+
+  - The output will look like this:
+```ts
+        {
+          accent: '#ff5733',
+          light: '#f0e68c',
+          dark: '#2f4f4f',
+          palette: ['#ff5733', '#33ff57', '#3357ff', '#f0e68c', '#2f4f4f', '#8b4513'] //6 most prominent colors
+        }
+```
+
+3. React Hook Usage:
+    - You can also use the provided React hook to extract colors in a React component.
+
+   - Hook `useImageColors`: 
+    This hook accepts two parameters: image source (URL or HTMLImageElement) and options.
+    (Refer [extractColors function](#extractcolors-function) section for available options)
+
+    <br/>
+    
+```tsx
+        import React from 'react';
+        import { useImageColors } from 'reactive-image-colors';
+
+        const MyComponent = () => {
+          const { colors, loading} = useImageColors(song.cover, {
+          mode: "music"
+        });
+          if (loading) return <div>Loading...</div>;
+          if (error) return <div>Error: {error}</div>;
+
+          return (
+            <div>
+              <p>Accent: {colors?.accent}</p>
+              <p>Light: {colors?.light}</p>
+              <p>Dark: {colors?.dark}</p>
+              <p>Palette: {colors?.palette.join(', ')}</p>
+            </div>
+          );
+        };
+
+        export default MyComponent;
+ ```
+   - This hook returns an object containing:
+```ts
+    {
+        colors: {
+            accent: string
+            light: string
+            dark: string
+            palette: string[]
+        } | null
+        loading: boolean
+        error: Error | null
+    }
+ ```
+   - and also have loading state to indicate if the colors are still being extracted.
 
 ## Browser & Node Support
 
